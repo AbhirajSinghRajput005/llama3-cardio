@@ -1,0 +1,6 @@
+unsloth
+transformers==5.5.0
+trl
+bitsandbytes
+accelerate
+datasets
