@@ -54,6 +54,12 @@ I engineered a **SafeSFTTrainer Interceptor**. Instead of rolling back to a lega
 To maintain repository performance, the large model adapters are hosted on the Hugging Face Hub:
  [**Access Model Weights Here**](https://huggingface.co/abhirajs005/llama3-cardio-fhir-v1)
 
+##  Inference Showcase
+Below is a real-world test of the model extracting structured FHIR data from a raw clinical note.
+
+**Input Note:**
+> "Patient: John Doe, 65y male. Assessment: Chronic Heart Failure. Diagnostics: Echocardiogram showed an Ejection Fraction (EF) of 32%. Lab results: Elevated BNP levels at 850 pg/mL. Prescription: Initiated Lisinopril 10mg daily."
+
 ### **How to Load:**
 ```python
 from unsloth import FastLanguageModel
@@ -61,3 +67,34 @@ model, tokenizer = FastLanguageModel.from_pretrained(
     model_name = "abhirajs005/llama3-cardio-fhir-v1",
     load_in_4bit = True,
 )
+
+
+## 🎯 Inference Showcase
+Below is a real-world test of the model extracting structured FHIR data from a raw clinical note.
+
+**Input Note:**
+> "Patient: John Doe, 65y male. Assessment: Chronic Heart Failure. Diagnostics: Echocardiogram showed an Ejection Fraction (EF) of 32%. Lab results: Elevated BNP levels at 850 pg/mL. Prescription: Initiated Lisinopril 10mg daily."
+
+**Model Output (Zero-Shot JSON Extraction):**
+
+```json
+{
+  "diagnoses": [
+    {
+      "condition_name": "Chronic Heart Failure",
+      "icd_10_category_guess": "I50",
+      "clinical_status": "active"
+    }
+  ],
+  "medications": [
+    {
+      "medication_name": "Lisinopril",
+      "dosage": "10mg",
+      "frequency": "daily",
+      "clinical_action": "started"
+    }
+  ],
+  "key_cardiac_metrics": {
+    "ejection_fraction_percentage": 32
+  }
+}
