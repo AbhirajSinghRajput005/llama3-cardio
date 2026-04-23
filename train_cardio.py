@@ -1,6 +1,7 @@
 
 # Fine-Tuning Llama-3 for Cardiology FHIR Extraction
 # This script includes the 'SafeSFTTrainer' interceptor to bypass the .mean() bug.
+# NEFTune Noise Alpha
 
 from trl import SFTTrainer
 from transformers import TrainingArguments
@@ -27,6 +28,7 @@ trainer = SafeSFTTrainer(
         bf16 = torch.cuda.is_bf16_supported(),
         logging_steps = 1,
         optim = "adamw_8bit",
+        neftune_noise_alpha = 5,
         weight_decay = 0.01,
         lr_scheduler_type = "linear",
         seed = 3407,
