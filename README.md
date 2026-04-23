@@ -46,6 +46,8 @@ I engineered a **SafeSFTTrainer Interceptor**. Instead of rolling back to a lega
 * `train_cardio.py`: The core training script featuring the `SafeSFTTrainer` bug-fix.
 * `requirements.txt`: Environment configuration for reproducible results.
 * `README.md`: Project documentation and assessment overview.
+* `llm-judge-script.py`: Automated evaluation script.
+* `sample_output.json` : Output json for the inference test
 
 ---
 
@@ -118,7 +120,7 @@ I conducted a side-by-side benchmark using a set of 50 unseen cardiology reports
 ---
 
 ## LLM-as-a-Judge Methodology
-To fulfill the requirement for objective reasoning quality, I implemented an automated evaluation script. This script utilizes GPT-4o to grade the student model's output against a ground-truth reference.
+To fulfill the requirement for objective reasoning quality, I implemented an automated evaluation script. This script utilizes GPT-4o to grade the model's output against a ground-truth reference.
 
 ### **Evaluation Script (`llm-judge-script.py`)**
 ```python
