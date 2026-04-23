@@ -1,5 +1,5 @@
 #  Cardiology Entity Extraction to FHIR JSON
-### **GenAI Internship Assessment Task**
+
 **Fine-tuning Llama-3-8B with Unsloth for Structured Medical Data Extraction**
 
 ---
@@ -20,7 +20,6 @@ During development, I encountered a critical integration bug between **Transform
 **My Solution:**
 I engineered a **SafeSFTTrainer Interceptor**. Instead of rolling back to a legacy environment, I implemented a custom class override for the `SFTTrainer`. By intercepting the `training_step` and sanitizing the arguments before they reached the core engine, I successfully bypassed the bug while maintaining the 2x training speedup.
 
-> **Note to Recruiters:** This demonstrates my ability to navigate the "bleeding edge" of AI libraries and implement architectural workarounds rather than relying solely on boilerplate code.
 
 ---
 
@@ -60,20 +59,6 @@ Below is a real-world test of the model extracting structured FHIR data from a r
 **Input Note:**
 > "Patient: John Doe, 65y male. Assessment: Chronic Heart Failure. Diagnostics: Echocardiogram showed an Ejection Fraction (EF) of 32%. Lab results: Elevated BNP levels at 850 pg/mL. Prescription: Initiated Lisinopril 10mg daily."
 
-### **How to Load:**
-```python
-from unsloth import FastLanguageModel
-model, tokenizer = FastLanguageModel.from_pretrained(
-    model_name = "abhirajs005/llama3-cardio-fhir-v1",
-    load_in_4bit = True,
-)
-
-
-## 🎯 Inference Showcase
-Below is a real-world test of the model extracting structured FHIR data from a raw clinical note.
-
-**Input Note:**
-> "Patient: John Doe, 65y male. Assessment: Chronic Heart Failure. Diagnostics: Echocardiogram showed an Ejection Fraction (EF) of 32%. Lab results: Elevated BNP levels at 850 pg/mL. Prescription: Initiated Lisinopril 10mg daily."
 
 **Model Output (Zero-Shot JSON Extraction):**
 
@@ -98,3 +83,12 @@ Below is a real-world test of the model extracting structured FHIR data from a r
     "ejection_fraction_percentage": 32
   }
 }
+```
+
+### **How to Load:**
+```python
+from unsloth import FastLanguageModel
+model, tokenizer = FastLanguageModel.from_pretrained(
+    model_name = "abhirajs005/llama3-cardio-fhir-v1",
+    load_in_4bit = True,
+)
