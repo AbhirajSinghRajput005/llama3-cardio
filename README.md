@@ -136,3 +136,13 @@ Reference Data: {ground_truth}
 
 Return JSON with 'score' and 'explanation'.
 """
+```
+
+## Training Logs & Failure Analysis
+* **Loss Curves:** [**wandb link**](https://wandb.ai/models-dayananda-sagar-college-of-engineering/huggingface/runs/6oh3jen6?nw=nwuserabhirajsingh005)
+* **GPU Memory:** Optimized via Unsloth to utilize **7.2GB / 16GB** of Tesla T4 VRAM, allowing for larger batch sizes without OOM errors.
+
+### Technial Failure Analysis
+**1. The "Temporal" Edge Case:** In reports with 10+ years of history, the model occasionally links a past medication to a current diagnosis.
+
+**2. The "Fix":** For production, I would implement **Sliding Window Attention** or a **Multi-Stage RAG** pipeline to separate "Active" vs. "History" medications before extraction.
